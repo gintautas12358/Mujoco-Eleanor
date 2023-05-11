@@ -1,0 +1,9 @@
+# Defines an action msg for the impedance controller
+# goal pose
+float32[6] des_pose
+---
+# position error after reaching the goal
+float32[6] pose_error
+---
+# position error feedback
+float32[6] feedback_pose_error

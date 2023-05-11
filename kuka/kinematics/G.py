@@ -1,0 +1,15 @@
+
+from math import sin, cos
+import numpy as np
+
+def G(qpos):
+	tt1, tt2, tt3, tt4, tt5, tt6, tt7 = qpos
+	g = np.zeros(7)
+	g[0] = 0
+	g[1] = 17.658*(-0.0006*(-sin(tt2)*sin(tt4) - cos(tt2)*cos(tt3)*cos(tt4))*cos(tt5) - 0.0006*sin(tt3)*sin(tt5)*cos(tt2))*sin(tt6) + 11.772*(0.101*(-sin(tt2)*sin(tt4) - cos(tt2)*cos(tt3)*cos(tt4))*cos(tt5) + 0.101*sin(tt3)*sin(tt5)*cos(tt2))*sin(tt6) + 34.335*(-0.021*sin(tt2)*sin(tt4) - 0.021*cos(tt2)*cos(tt3)*cos(tt4))*sin(tt5) + 34.335*(0.0001*sin(tt2)*sin(tt4) + 0.0001*cos(tt2)*cos(tt3)*cos(tt4))*cos(tt5) + 17.658*(0.0004*sin(tt2)*sin(tt4) + 0.0004*cos(tt2)*cos(tt3)*cos(tt4))*sin(tt5) + 11.772*(-0.101*sin(tt2)*cos(tt4) + 0.101*sin(tt4)*cos(tt2)*cos(tt3))*cos(tt6) + 17.658*(0.0006*sin(tt2)*cos(tt4) - 0.0006*sin(tt4)*cos(tt2)*cos(tt3))*cos(tt6) - 23.0167125*sin(tt2)*cos(tt4) - 56.362374*sin(tt2) - 0.0034335*sin(tt3)*sin(tt5)*cos(tt2) - 0.7139718*sin(tt3)*cos(tt2)*cos(tt5) - 0.13734*sin(tt3)*cos(tt2) + 23.0167125*sin(tt4)*cos(tt2)*cos(tt3)
+	g[2] = 17.658*(-0.0006*sin(tt2)*sin(tt3)*cos(tt4)*cos(tt5) - 0.0006*sin(tt2)*sin(tt5)*cos(tt3))*sin(tt6) + 11.772*(0.101*sin(tt2)*sin(tt3)*cos(tt4)*cos(tt5) + 0.101*sin(tt2)*sin(tt5)*cos(tt3))*sin(tt6) - 1.1783772*sin(tt2)*sin(tt3)*sin(tt4)*cos(tt6) - 23.0167125*sin(tt2)*sin(tt3)*sin(tt4) + 0.7139718*sin(tt2)*sin(tt3)*sin(tt5)*cos(tt4) - 0.0034335*sin(tt2)*sin(tt3)*cos(tt4)*cos(tt5) - 0.0034335*sin(tt2)*sin(tt5)*cos(tt3) - 0.7139718*sin(tt2)*cos(tt3)*cos(tt5) - 0.13734*sin(tt2)*cos(tt3)
+	g[3] = 17.658*(-0.0004*sin(tt2)*sin(tt4)*cos(tt3) - 0.0004*cos(tt2)*cos(tt4))*sin(tt5) + 34.335*(-0.0001*sin(tt2)*sin(tt4)*cos(tt3) - 0.0001*cos(tt2)*cos(tt4))*cos(tt5) + 34.335*(0.021*sin(tt2)*sin(tt4)*cos(tt3) + 0.021*cos(tt2)*cos(tt4))*sin(tt5) + 1.1783772*(sin(tt2)*sin(tt4)*cos(tt3) + cos(tt2)*cos(tt4))*sin(tt6)*cos(tt5) + 17.658*(-0.0006*sin(tt2)*cos(tt3)*cos(tt4) + 0.0006*sin(tt4)*cos(tt2))*cos(tt6) + 11.772*(0.101*sin(tt2)*cos(tt3)*cos(tt4) - 0.101*sin(tt4)*cos(tt2))*cos(tt6) + 23.0167125*sin(tt2)*cos(tt3)*cos(tt4) - 23.0167125*sin(tt4)*cos(tt2)
+	g[4] = 11.772*(-0.101*(-sin(tt2)*cos(tt3)*cos(tt4) + sin(tt4)*cos(tt2))*sin(tt5) + 0.101*sin(tt2)*sin(tt3)*cos(tt5))*sin(tt6) + 17.658*(0.0006*(-sin(tt2)*cos(tt3)*cos(tt4) + sin(tt4)*cos(tt2))*sin(tt5) - 0.0006*sin(tt2)*sin(tt3)*cos(tt5))*sin(tt6) + 34.335*(-0.021*sin(tt2)*cos(tt3)*cos(tt4) + 0.021*sin(tt4)*cos(tt2))*cos(tt5) - 34.335*(0.0001*sin(tt2)*cos(tt3)*cos(tt4) - 0.0001*sin(tt4)*cos(tt2))*sin(tt5) + 17.658*(0.0004*sin(tt2)*cos(tt3)*cos(tt4) - 0.0004*sin(tt4)*cos(tt2))*cos(tt5) + 0.7139718*sin(tt2)*sin(tt3)*sin(tt5) - 0.0034335*sin(tt2)*sin(tt3)*cos(tt5)
+	g[5] = 17.658*(-0.0006*(-sin(tt2)*cos(tt3)*cos(tt4) + sin(tt4)*cos(tt2))*cos(tt5) - 0.0006*sin(tt2)*sin(tt3)*sin(tt5))*cos(tt6) + 11.772*(0.101*(-sin(tt2)*cos(tt3)*cos(tt4) + sin(tt4)*cos(tt2))*cos(tt5) + 0.101*sin(tt2)*sin(tt3)*sin(tt5))*cos(tt6) - 17.658*(-0.0006*sin(tt2)*sin(tt4)*cos(tt3) - 0.0006*cos(tt2)*cos(tt4))*sin(tt6) - 11.772*(0.101*sin(tt2)*sin(tt4)*cos(tt3) + 0.101*cos(tt2)*cos(tt4))*sin(tt6)
+	g[6] = 0
+	return g

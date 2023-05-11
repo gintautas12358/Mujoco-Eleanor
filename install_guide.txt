@@ -1,0 +1,87 @@
+Start
+
+
+# pip install
+sudo apt install python3-pip
+
+# mujoco viewer
+pip install -e .
+
+## mujoco-eleanor
+
+# essentials
+sudo apt-get install -y build-essential \
+    wget \
+    git \
+    unzip \
+    python3-setuptools \
+    curl 
+
+   
+
+## CUDA
+
+steps in (prefered method):
+https://gist.github.com/Mahedi-61/2a2f1579d4271717d421065168ce6a73
+
+or try this out
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo    mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+sudo  dpkg -i cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+sudo    apt-key add /var/cuda-repo-ubuntu2004-11-3-local/7fa2af80.pub
+sudo   apt-get -y update 
+sudo    apt-get -y install cuda
+
+
+## esim -branch upsampler_packager
+git clone https://github.com/uzh-rpg/rpg_vid2e.git
+cd rpg_vid2e 
+git checkout upsampler_packager
+cd ..
+
+ wget https://rpg.ifi.uzh.ch/data/VID2E/pretrained_models.zip -O /tmp/temp.zip
+    unzip /tmp/temp.zip -d rpg_vid2e/
+    rm -rf /tmp/temp.zip
+    
+conda create --name vid2e python=3.9
+conda activate vid2e
+pip install -r rpg_vid2e/requirements.txt
+conda install -y -c conda-forge pybind11 matplotlib
+
+pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
+
+instead of
+conda install -y pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+
+
+sudo apt install -y libopencv-dev python3-opencv
+sudo     apt-get install -y libeigen3-dev
+sudo     apt-get install -y libboost-all-dev
+    pip install rpg_vid2e/esim_py/
+
+
+# after cuda is setuped
+ pip install rpg_vid2e/esim_torch/
+
+pip install sk-video
+pip install tqdm
+ pip install rpg_vid2e/upsampling
+ 
+ 
+ ## mujoco-python-viewer
+ 
+pip install -e mujoco_viewer
+ 
+ 
+# add a line for the upsampler
+echo "from .upsampler import Upsampler" >> /home/palinauskas/anaconda3/envs/vid2e/lib/python3.9/site-packages/upsampler/__init__.py
+ 
+
+## install mujoco-eleanor
+
+pip install -r mujoco-eleanor/requirements.txt 
+    
+    
+    

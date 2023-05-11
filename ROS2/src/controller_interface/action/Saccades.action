@@ -1,0 +1,9 @@
+# Defines an action msg for the impedance controller
+# How long to do saccades
+float32 duration # in s
+---
+# time spent saccading
+float32 time_spent
+---
+# time left until the end of the saccades
+float32 time_left

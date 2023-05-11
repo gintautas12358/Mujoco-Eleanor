@@ -1,0 +1,41 @@
+poses:
+  joint:
+    # Joint space (in deg)
+    INIT_Q: [0,0,0,0,0,0,0]
+    TEST_Q: [-10,0,0,30,0,00,0]
+    HOME_Q: [-90,0,0,90,0,-90,0]
+    ROBOT_HOME_Q: [-90,0,0,90,0,-90,0]
+    APPROACH_Q: [-96.20, -40.67, 0, 76.07, 0, -63.29, -6.28]
+    INSERTION_Q: [-94.99, -41.79, 0, 77.17, 0,-61.03, -5.01]
+    TEST_Q: [-90, -54, 0, 80, 0.0, -43, 0]
+    TEST2_Q: [-90, -90, 0, 80, 0.0, -43, 0]
+
+
+  cartesian:
+    # Cartisian space (orientation in deg)
+    # HOME: [0.0,0.4,0.65, 180, 0, 0]
+    # #APPROACH: [-0.2,0.65,0.3, 180, 45, 0]
+    # APPROACH: [0,0.45,0.65, 180, 45, 0]
+    # INSERTION: [-0.20,0.65,0.2, 180, 45, 0]
+    # LOOK: [0,0.55,0.2, 180, 45, 0]
+    # TEST: [0.0, 0.60, 0.1, 180, 0, 0]
+    HOME: [0.0,0.4,0.55, 180, 0, 0]
+    #APPROACH: [-0.2,0.65,0.3, 180, 45, 0]
+    APPROACH: [0,0.45,0.55, 180, 0, 0]
+    INSERTION: [-0.20,0.65,0.1, 180, 0, 0]
+    LOOK: [0,0.55,0.1, 180, 45, 0]
+    TEST: [0.0, 0.60, 0.0, 180, 0, 0]
+    TEST1: [0.1,0.45,0.55, 180, -90, 0]
+    TEST2: [-0.1,0.45,0.55, 180, 90, 0]
+
+
+jerr_limit: 0.1 # accuracy of reaching a position before changing viapoint
+cerr_limit: 0.08 # accuracy of reaching a position before changing viapoint
+
+# mujoco_model_xml: "kuka/envs/assets/sim_ethernet.xml"
+mujoco_model_xml: "kuka/envs/assets/sim_vga.xml"
+# mujoco_model_xml: "kuka/envs/assets/sim_hdmi.xml"
+# mujoco_model_xml: "kuka/envs/assets/sim_usb.xml"
+# mujoco_model_xml: "kuka/envs/assets/sim.xml"
+# mujoco_model_xml: "kuka/envs/assets/sim_hole.xml"
+

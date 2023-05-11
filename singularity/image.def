@@ -1,0 +1,163 @@
+Bootstrap: docker
+From:  nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+Stage: build
+
+%setup
+    #touch /file1
+    #touch ${SINGULARITY_ROOTFS}/file2
+
+%files
+    #/file1
+    #/file1 /opt
+
+%environment
+    # export LISTEN_PORT=12345
+    # export LC_ALL=C
+    # export DEBIAN_FRONTEND=noninteractive
+    # export DEBIAN_FRONTEND=teletype
+
+%post
+    export DEBIAN_FRONTEND=noninteractive 
+    export TZ=TZ=Europe/Minsk
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+    echo $TZ > /etc/timezone
+
+
+    apt-get update 
+
+    apt-get install -y build-essential \
+    wget \
+    git \
+    unzip \
+    python3-setuptools \
+    curl 
+    # libxml2
+
+    ##########################
+    # pip
+    ##########################
+    # curl "https://bootstrap.pypa.io/get-pip.py" -o "install-pip3-ubuntu.py"
+    # python3 install-pip3-ubuntu.py
+    apt-get -y install python3-pip
+
+    ##########################
+    # CUDA
+    ##########################
+    # apt-get install -y dialog
+
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    # mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    # wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+    # DEBIAN_FRONTEND=noninteractive dpkg -i cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+    # apt-key add /var/cuda-repo-ubuntu2004-11-3-local/7fa2af80.pub
+    # DEBIAN_FRONTEND=noninteractive apt-get -y update 
+    # apt-get -y install cuda-11-3
+
+    ##########################
+    # Cmake
+    ##########################
+    apt-get install -y build-essential libssl-dev
+    wget https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2.tar.gz
+    tar -zxvf cmake-3.23.2.tar.gz
+    cd cmake-3.23.2
+    ./bootstrap
+    make
+    make install
+    cd ..
+     
+    ##########################
+    # Pytorch
+    ##########################
+    # pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+    pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
+
+    ##########################
+    # Display
+    ##########################
+    apt-get install -y xorg
+
+    ##########################
+    # eSim
+    ##########################
+    pip install ninja
+    pip install matplotlib
+    pip install pybind11
+    pip install pybind11-global
+    git clone https://github.com/uzh-rpg/rpg_vid2e.git
+    cd rpg_vid2e
+    git checkout upsampler_packager
+    cd ..
+    wget https://rpg.ifi.uzh.ch/data/VID2E/pretrained_models.zip -O /tmp/temp.zip
+    unzip /tmp/temp.zip -d rpg_vid2e/
+    rm -rf /tmp/temp.zip
+    pip install -r rpg_vid2e/requirements.txt
+
+    # esim_py part
+    apt install -y libopencv-dev python3-opencv
+    apt-get install -y libeigen3-dev
+    apt-get install -y libboost-all-dev
+    # pip install pybind11
+    # pip install pybind11-global
+    # pip install rpg_vid2e/esim_py/
+
+    # esim_torch part
+    export TORCH_CUDA_ARCH_LIST="3.5;5.0;6.0;6.1;7.0;7.5;8.0;8.6+PTX"
+    pip install rpg_vid2e/esim_torch/
+
+    # upsampler
+
+    # bug fix
+    echo "from .upsampler import Upsampler" >> rpg_vid2e/upsampling/src/upsampler/__init__.py
+
+    pip install rpg_vid2e/upsampling
+
+
+    ##########################
+    # Project
+    ##########################
+    git clone https://git.fortiss.org/neuromorphic-computing/inrc3/mujoco-eleanor.git
+    pip install -r mujoco-eleanor/requirements.txt
+
+
+    ##########################
+    # MuJoCo viewer
+    ##########################
+    pip install mujoco-eleanor/mujoco_viewer
+
+
+    ##########################
+    # RL
+    ##########################
+    pip install -r mujoco-eleanor/RL/requirements.txt
+    pip install  mujoco-eleanor/gym-env
+
+
+    # NOW=`date`
+    # echo "export NOW=\"${NOW}\"" >> $SINGULARITY_ENVIRONMENT
+
+%runscript
+    echo "Container was created $NOW"
+    echo "Arguments received: $*"
+    exec echo "$@"
+
+%startscript
+    cd mujoco-eleanor
+    python3 kuka/PegInHole.py
+    # nc -lp $LISTEN_PORT
+
+%test
+    # grep -q NAME=\"Ubuntu\" /etc/os-release
+    # if [ $? -eq 0 ]; then
+    #     echo "Container base is Ubuntu as expected."
+    # else
+    #     echo "Container base is not Ubuntu."
+    #     exit 1
+    # fi
+
+%labels
+    # Author d@sylabs.io
+    # Version v0.0.1
+
+%help
+    # This is a demo container used to illustrate a def file that uses all
+    # supported sections.

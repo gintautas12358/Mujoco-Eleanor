@@ -1,0 +1,39 @@
+
+
+# mujoco_model_xml: "../kuka/envs/assets/sim_ethernet.xml"
+mujoco_model_xml: "../kuka/envs/assets/sim_vga.xml"
+# mujoco_model_xml: "../kuka/envs/assets/sim_hdmi.xml"
+# mujoco_model_xml: "../kuka/envs/assets/sim_usb.xml"
+# mujoco_model_xml: "../kuka/envs/assets/sim.xml"
+# mujoco_model_xml: "../kuka/envs/assets/sim_hole.xml"
+
+
+operations:
+  capture_events_enable: True
+  save_events: True
+  capture_frames_enable: True
+  save_frames: True
+  save_pose: True
+  save_path: "dataset" 
+
+
+saccade: 
+  # pose_is_cartesian: False # False - joint pose [deg], True - cartesian pose [m, deg]
+  start_pose: [-93.46391828025477, -54.83878222929936, 4.964762866242038, 88.90747738853501, -6.796491019108279, -36.73133025477707, -85.13402445859872] # 7th joint should be kept in -90 degrees for initialization
+  type: "circle" # circle; random_circle
+  duration: 0.5 # simulation seconds
+  radius: 0.01 # m
+  sample_frequency: 20 # Hz
+  circular_speed: 10 # rad/s
+
+
+esim: # event simulator parameter
+  Cp: 0.9 # positice contrast threshold
+  Cn: 0.9 # negative contrast threshold
+  refractory_period: 100 # ns
+
+motion_controller: # PD impedance controller is used
+  stiffness: [300.0, 300.0, 300.0, 100.3, 100.3, 100.3]
+  damping: [20.0, 20.0, 20.0, 20.3, 20.3, 20.3]
+  null_space_damping: 100
+  null_space_stiffness: 1000

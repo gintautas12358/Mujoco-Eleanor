@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<mujoco>
+    <!-- camera view for event-based camera -->
+    <camera name="view_camera" mode="fixed" fovy="103" pos="0 1.5 0.5" euler="-1.57 0 3.14"/>
+
+    <light pos="0 0 1000" castshadow="false"/>
+    <body name="robot" pos="0 0 0">
+      <include file="kuka/kuka_mesh_collision_peg_ee_camera.xml"/>
+    </body>
+    <body name="table" pos="0 0 0">
+      <geom class="collision" type="box" size=".41 .63 .5" pos="0 0.37 -0.5" rgba="0.6 0.6 0.6 0"/>
+      <geom class="visual" pos="0 0 -1" euler="-1.570796326794897 0 0" type="mesh" mesh="table_mesh" material="kuka_grey"/>
+      <!-- <geom pos="-0.15 0.6 0" euler="0 0 0" type="mesh" mesh="simple_shapes_mesh"/> -->
+    </body>
+    <body name="floor" pos="0 0 -1">
+      <geom class="collision" type="plane" size="10 10 1" rgba="0.6 0.6 0.6 1.0"/> 
+    </body>
+
+    
+    <body name="fk1" pos="0 0 0.5">
+      <site name="s1" />
+    </body>
+    <body name="fk2" pos="0 0 0.5">
+      <site name="s2" />
+    </body>
+    <body name="fk3" pos="0 0 0.5">
+      <site name="s3" />
+    </body>
+    <body name="fk4" pos="0 0 0.5">
+      <site name="s4" />
+    </body>
+    <body name="fk5" pos="0 0 0.5">
+      <site name="s5" />
+    </body>
+    <body name="fk6" pos="0 0 0.5">
+      <site name="s6" />
+    </body>
+    <body name="fk7" pos="0 0 0.5">
+      <site name="s7" />
+    </body>
+
+</mujoco>
